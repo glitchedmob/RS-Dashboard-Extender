@@ -1,7 +1,6 @@
 "use strict";
 class CardFilter {
     constructor(name) {
-        console.log('I am working bithc');
         this.name = name;
         this.cardList = document.querySelector('.cardList');
         this.cards = [...this.cardList.querySelectorAll('.cardr.card-shape')];

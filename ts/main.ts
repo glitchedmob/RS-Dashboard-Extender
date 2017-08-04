@@ -7,7 +7,6 @@ class CardFilter
 
 	public constructor(name: string)
 	{
-		console.log('I am working bithc');
 		this.name = name;
 		this.cardList = <HTMLElement>document.querySelector('.cardList');
 		this.cards = [...this.cardList.querySelectorAll('.cardr.card-shape')];
