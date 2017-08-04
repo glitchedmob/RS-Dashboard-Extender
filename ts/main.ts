@@ -1,30 +1,64 @@
-class CardFilter 
+class CardList 
 {
-	private name: string;
-	private cardList: HTMLElement;
-	private cards: Element[];
-	private filtered: Element[];
+	public cardListEl: HTMLElement;
+	public cards: Element[];
 
-	public constructor(name: string)
+	public constructor()
 	{
-		this.name = name;
-		this.cardList = <HTMLElement>document.querySelector('.cardList');
-		this.cards = [...this.cardList.querySelectorAll('.cardr.card-shape')];
-		this.filtered = this.cards.filter(card => card.innerHTML.includes(this.name));
-		this.attachFilteredCards();
+		this.cardListEl = <HTMLElement>document.querySelector('.cardList');
+		this.cards = [...this.cardListEl.querySelectorAll('.cardr.card-shape')];
 	}
 
-	private attachFilteredCards()
+	public updateCards(cards: Element[])
 	{
-		this.cardList.innerHTML = '';
-		this.filtered.forEach(card => {
-			this.cardList.appendChild(card);
+		this.cardListEl.innerHTML = '';
+		cards.forEach(card => {
+			this.cardListEl.appendChild(card);
 		});
 	}
 }
 
+class NameFilter 
+{
+	private name: string;
+	public filtered: Element[];
+
+	public constructor(name: string)
+	{
+		this.name = name;
+		
+	}
+
+	public filter(cards: Element[])
+	{
+		this.filtered = cards.filter(card => card.innerHTML.includes(this.name));
+	}
+
+}
+
+class Controller
+{
+	public config: any;
+	public cardList: CardList;
+	public nameFilter: NameFilter;
+
+	public constructor(config: any)
+	{
+		this.config = config;
+		this.cardList = new CardList();
+		this.nameFilter = new NameFilter(this.config.name);
+		this.update();
+	}
+
+	public update()
+	{
+		this.nameFilter.filter(this.cardList.cards);
+		this.cardList.updateCards(this.nameFilter.filtered)
+	}
+}
+
 setTimeout(() => {
-	new CardFilter('Douglas Bradshaw');
+	new Controller({name: 'Douglas Bradshaw'});
 }, 1000);
 
 

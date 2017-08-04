@@ -1,20 +1,37 @@
 "use strict";
-class CardFilter {
-    constructor(name) {
-        this.name = name;
-        this.cardList = document.querySelector('.cardList');
-        this.cards = [...this.cardList.querySelectorAll('.cardr.card-shape')];
-        this.filtered = this.cards.filter(card => card.innerHTML.includes(this.name));
-        this.attachFilteredCards();
+class CardList {
+    constructor() {
+        this.cardListEl = document.querySelector('.cardList');
+        this.cards = [...this.cardListEl.querySelectorAll('.cardr.card-shape')];
     }
-    attachFilteredCards() {
-        this.cardList.innerHTML = '';
-        this.filtered.forEach(card => {
-            this.cardList.appendChild(card);
+    updateCards(cards) {
+        this.cardListEl.innerHTML = '';
+        cards.forEach(card => {
+            this.cardListEl.appendChild(card);
         });
     }
 }
+class NameFilter {
+    constructor(name) {
+        this.name = name;
+    }
+    filter(cards) {
+        this.filtered = cards.filter(card => card.innerHTML.includes(this.name));
+    }
+}
+class Controller {
+    constructor(config) {
+        this.config = config;
+        this.cardList = new CardList();
+        this.nameFilter = new NameFilter(this.config.name);
+        this.update();
+    }
+    update() {
+        this.nameFilter.filter(this.cardList.cards);
+        this.cardList.updateCards(this.nameFilter.filtered);
+    }
+}
 setTimeout(() => {
-    new CardFilter('Douglas Bradshaw');
+    new Controller({ name: 'Douglas Bradshaw' });
 }, 1000);
 //# sourceMappingURL=main.js.map
