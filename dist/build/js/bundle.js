@@ -175,6 +175,9 @@ class View {
 		`;
         this.cacheElements();
     }
+    /**
+     * Cache all of the DOM Elements used throughout the app
+     */
     cacheElements() {
         this.panel = Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* qs */])('#rsdbe-options-panel', this.appContainer);
         this.logo = Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* qs */])('#rsdbe-logo', this.appContainer);
@@ -183,6 +186,10 @@ class View {
         this.cardsWrapper = Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* qs */])('.cardList');
         this.cards = [...Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* qsa */])('.cardr.card-shape', this.cardsWrapper)];
     }
+    /**
+     * Refreshes all of the cards in the DOM
+     * @param cards Array of DOM Elements to inject into the page
+     */
     updateCards(cards) {
         this.cardsWrapper.innerHTML = "";
         cards.forEach(card => {

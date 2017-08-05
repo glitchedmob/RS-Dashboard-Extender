@@ -49,6 +49,9 @@ export default class View
 		this.cacheElements();
 	}
 
+	/**
+	 * Cache all of the DOM Elements used throughout the app
+	 */
 	public cacheElements()
 	{
 		this.panel = qs('#rsdbe-options-panel', this.appContainer);
@@ -59,6 +62,10 @@ export default class View
 		this.cards = [...qsa('.cardr.card-shape', this.cardsWrapper)];
 	}
 
+	/**
+	 * Refreshes all of the cards in the DOM
+	 * @param cards Array of DOM Elements to inject into the page
+	 */
 	public updateCards(cards: Node[])
 	{
 		this.cardsWrapper.innerHTML = "";
