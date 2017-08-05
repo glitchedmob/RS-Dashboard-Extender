@@ -1,0 +1,7 @@
+#rs-dashboard-extender img {
+  position: fixed;
+  top: 25px;
+  right: 20px;
+  height: 70px; }
+  #rs-dashboard-extender img:hover {
+    cursor: pointer; }
