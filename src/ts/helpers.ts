@@ -5,7 +5,7 @@
  * @param selector Selector to query
  * @param scope Scope of query. Ff left null, will scope to document
  */
-export function qs(selector: string, scope?: HTMLElement): Element
+export function qs(selector: string, scope?: Element): Element
 {
 	return <Element>(scope || document).querySelector(selector);
 }
@@ -16,9 +16,9 @@ export function qs(selector: string, scope?: HTMLElement): Element
  * @param selector Selector to query
  * @param scope Scope of query. Ff left null, will scope to document
  */
-export function qsa(selector: string, scope: HTMLElement): NodeList
+export function qsa(selector: string, scope: Element)
 {
-	return <NodeList>(scope || document).querySelectorAll(selector);
+	return [...(scope || document).querySelectorAll(selector)];
 }
 
 export function $on(target: Element|Window, type: string, callback: EventListenerOrEventListenerObject)

@@ -11,7 +11,20 @@ export default class View
 	 * div with all of the fronend options
 	 */
 	public panel: Element;
+
+	/**
+	 * Image tag containing the logo
+	 */
 	public logo: Element;
+
+	/**
+	 * Tags for the search box in the options panel
+	 */
+	public searchInput: HTMLInputElement;
+	public searchButton: Element; 
+
+	public cardsWrapper: Element;
+	public cards: Element[];
 
 
 	/**
@@ -28,8 +41,8 @@ export default class View
 			<img src="${logo}" id="rsdbe-logo">
 			<div id="rsdbe-options-panel">
 				<div id="rsdbe-arrow-up"></div>
-				<input type="text">
-				<button id="rsdbe-update-name">Update Name</button>
+				<input type="text" id="rsdbe-search">
+				<button id="rsdbe-search-button">Search</button>
 			</div>
 		`;
 
@@ -38,7 +51,19 @@ export default class View
 
 	public cacheElements()
 	{
-		this.panel = qs('#rsdbe-options-panel');
-		this.logo = qs('#rsdbe-logo');
+		this.panel = qs('#rsdbe-options-panel', this.appContainer);
+		this.logo = qs('#rsdbe-logo', this.appContainer);
+		this.searchInput = <HTMLInputElement>qs('#rsdbe-search', this.appContainer);
+		this.searchButton = qs('#rsdbe-search-button', this.appContainer);
+		this.cardsWrapper = qs('.cardList');
+		this.cards = [...qsa('.cardr.card-shape', this.cardsWrapper)];
+	}
+
+	public updateCards(cards: Node[])
+	{
+		this.cardsWrapper.innerHTML = "";
+		cards.forEach(card => {
+			this.cardsWrapper.appendChild(card);
+		});
 	}
 }

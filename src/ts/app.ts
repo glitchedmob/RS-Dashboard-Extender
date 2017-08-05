@@ -4,4 +4,7 @@ import Controller from './controller';
 
 const store = new Store();
 const view = new View();
-const controller = new Controller(store, view);
+
+setTimeout(() => {
+	const controller = new Controller(store, view);
+}, 1000)
