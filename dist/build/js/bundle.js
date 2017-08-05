@@ -98,6 +98,7 @@ const controller = new __WEBPACK_IMPORTED_MODULE_2__controller__["a" /* default 
 class Store {
     constructor() {
         this.logo = __WEBPACK_IMPORTED_MODULE_0__data_logo__["a" /* logoImageData */];
+        this.panelOpen = false;
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Store;
@@ -125,6 +126,8 @@ module.exports = __webpack_require__.p + "../css/app.css";
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(7);
+
 class View {
     /**
      * Inserts app into the page
@@ -134,7 +137,19 @@ class View {
         app.setAttribute('id', 'rs-dashboard-extender');
         document.body.appendChild(app);
         this.appContainer = document.querySelector('#rs-dashboard-extender');
-        this.appContainer.innerHTML = `<img src="${logo}">`;
+        this.appContainer.innerHTML = `
+			<img src="${logo}" id="rsdbe-logo">
+			<div id="rsdbe-options-panel">
+				<div id="rsdbe-arrow-up"></div>
+				<input type="text">
+				<button id="rsdbe-update-name">Update Name</button>
+			</div>
+		`;
+        this.cacheElements();
+    }
+    cacheElements() {
+        this.panel = Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* qs */])('#rsdbe-options-panel');
+        this.logo = Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* qs */])('#rsdbe-logo');
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = View;
@@ -146,15 +161,53 @@ class View {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(7);
+
 class Controller {
     constructor(store, view) {
         this.store = store;
         this.view = view;
         this.view.insertApp(store.logo);
+        Object(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* $on */])(this.view.logo, "click", this.togglePanel.bind(this));
+    }
+    togglePanel() {
+        this.store.panelOpen = !this.store.panelOpen;
+        this.view.panel.setAttribute('style', `display: ${this.store.panelOpen ? 'initial' : 'none'};`);
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Controller;
 
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = qs;
+/* unused harmony export qsa */
+/* harmony export (immutable) */ __webpack_exports__["a"] = $on;
+/**
+ * A wrapper for the querySelector method
+ *
+ * @param selector Selector to query
+ * @param scope Scope of query. Ff left null, will scope to document
+ */
+function qs(selector, scope) {
+    return (scope || document).querySelector(selector);
+}
+/**
+ * A wrapper for the querySelectorAll method
+ *
+ * @param selector Selector to query
+ * @param scope Scope of query. Ff left null, will scope to document
+ */
+function qsa(selector, scope) {
+    return (scope || document).querySelectorAll(selector);
+}
+function $on(target, type, callback) {
+    target.addEventListener(type, callback);
+}
 
 
 /***/ })

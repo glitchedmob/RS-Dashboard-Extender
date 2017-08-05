@@ -1,5 +1,8 @@
+import {$on} from './helpers';
+
 import Store from './store';
 import View from './view';
+
 
 export default class Controller
 {
@@ -12,5 +15,12 @@ export default class Controller
 		this.view = view;
 
 		this.view.insertApp(store.logo);
+		$on(this.view.logo, "click", this.togglePanel.bind(this))
+	}
+
+	private togglePanel()
+	{
+		this.store.panelOpen = !this.store.panelOpen;
+		this.view.panel.setAttribute('style', `display: ${this.store.panelOpen ? 'initial' : 'none'};`);
 	}
 }
